@@ -36,7 +36,7 @@ import java.util.Set;
 public class LdapFinder extends AbstractPIPAttributeFinder {
 
     
-    private static final String ACCOUNT_AMOUNT = "http://ifrn.edu.br/ldap/grupo";
+    private static final String LDAP_GROUP = "http://ifrn.edu.br/ldap/grupo";
 
 	/**
 	 * List of attribute finders supported by the this PIP attribute finder
@@ -46,7 +46,7 @@ public class LdapFinder extends AbstractPIPAttributeFinder {
     @Override
 	public void init(Properties properties)  throws Exception{
 
-        supportedAttributes.add(ACCOUNT_AMOUNT);
+        supportedAttributes.add(LDAP_GROUP);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class LdapFinder extends AbstractPIPAttributeFinder {
                                           String environmentId, String attributeId, String issuer) throws Exception{
 
         Set<String> values = new HashSet<String>();
-        if(ACCOUNT_AMOUNT.equals(attributeId)){
+        if(LDAP_GROUP.equals(attributeId)){
             values.add(getValue(subjectId));
         }
         return values;
