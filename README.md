@@ -6,7 +6,9 @@ LDAP PIP implementation for WSO2IS
 
 ### Build
 
+```
 $ mvn clean install
+```
 
 
 ### Install
