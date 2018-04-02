@@ -1,21 +1,21 @@
-## WSO2-PIP
+WSO2-PIP
+========
 
 LDAP PIP implementation for WSO2IS
 
 
-## Build
+### Build
 
-```
-mvn clean install
-```
+$ mvn clean install
 
-## Install
+
+### Install
 
 ```
 cp target/br.ifrn.xacml.pip.ldap-1.0.0.jar IS_HOME/repository/components/lib
 ```
 
-## Configure
+### Configure
 
 Edit file IS_HOME/repository/conf/identity/entitlement.properties
 
@@ -24,7 +24,7 @@ PIP.AttributeDesignators.Designator.3=br.ifrn.xacml.pip.ldap.LdapFinder
 ```
 
 
-## Run
+### Run
 
 - Start WSO2 IS
 
@@ -33,7 +33,7 @@ PIP.AttributeDesignators.Designator.3=br.ifrn.xacml.pip.ldap.LdapFinder
 - Home -> Entitlement -> PDP -> Extension
 
 
-## References
+### References
 
 https://stackoverflow.com/questions/47408114/configuring-custom-pip-point-in-wso2
 
