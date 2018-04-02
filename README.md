@@ -11,8 +11,9 @@ mvn clean install
 
 ## Install
 
+```
 cp target/br.ifrn.xacml.pip.ldap-1.0.0.jar IS_HOME/repository/components/lib
-
+```
 
 ## Configure
 
