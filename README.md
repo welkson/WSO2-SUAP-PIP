@@ -60,3 +60,10 @@ https://wso2.com/library/articles/2013/11/fine-grained-xacml-authoriation-with-p
 https://svn.wso2.org/repos/wso2/carbon/platform/trunk/components/identity/org.wso2.carbon.identity.samples.entitlement.pip/
 
 http://www.forumsys.com/tutorials/integration-how-to/ldap/online-ldap-test-server/ (LDAP Server Demo)
+
+
+
+TO-DO:
+
+-  mvn install:install-file -Dfile=org.wso2.carbon.identity.entitlement_5.10.92.jar -DgroupId=org.wso2.carbon -DartifactId=org.wso2.carbon.identity.entitlement -Dversion=5.10.92 -Dpackaging=jar
+

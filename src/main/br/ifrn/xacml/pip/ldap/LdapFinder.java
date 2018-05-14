@@ -18,17 +18,11 @@
 
 package br.ifrn.xacml.pip.ldap;
 
-import org.wso2.carbon.identity.entitlement.pip.AbstractPIPAttributeFinder;
-
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
+
+import org.wso2.carbon.identity.entitlement.pip.AbstractPIPAttributeFinder;
 
 /**
  * This is sample implementation of PIPAttributeFinder in WSO2 entitlement engine.
