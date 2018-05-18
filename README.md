@@ -59,8 +59,9 @@ https://wso2.com/library/articles/2013/11/fine-grained-xacml-authoriation-with-p
 
 https://svn.wso2.org/repos/wso2/carbon/platform/trunk/components/identity/org.wso2.carbon.identity.samples.entitlement.pip/
 
-http://www.forumsys.com/tutorials/integration-how-to/ldap/online-ldap-test-server/ (LDAP Server Demo)
+https://svn.wso2.org/repos/wso2/people/asela/xacml/sample/elian/pip/   (PIP WSO2 sample)
 
+http://www.forumsys.com/tutorials/integration-how-to/ldap/online-ldap-test-server/ (LDAP Server Demo)
 
 
 TO-DO:

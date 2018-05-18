@@ -39,22 +39,28 @@ public class LdapFinder extends AbstractPIPAttributeFinder {
 
     @Override
 	public void init(Properties properties)  throws Exception{
-
         supportedAttributes.add(LDAP_GROUP);
     }
 
     @Override
     public String getModuleName() {
-        return "LDAP PIP Finder";
+        return "LDAP PIP Finder v0.0.1";
     }
 
     @Override
     public Set<String> getAttributeValues(String subjectId, String resourceId, String actionId,
                                           String environmentId, String attributeId, String issuer) throws Exception{
 
-        Set<String> values = new HashSet<String>();
+	System.out.println("subjectId: " + subjectId);
+	System.out.println("resourceId: " + resourceId);
+	System.out.println("actionId: " + actionId);
+	System.out.println("environmentId: " + environmentId);
+	System.out.println("attributeId: " + attributeId);
+	System.out.println("issuer: " + issuer);
+
+    	Set<String> values = new HashSet<String>();
         if(LDAP_GROUP.equals(attributeId)){
-            values.add(getValue(subjectId));
+            values.add(findGroup(subjectId));
         }
         return values;
 	}
@@ -64,15 +70,16 @@ public class LdapFinder extends AbstractPIPAttributeFinder {
 		return supportedAttributes;
 	}
     
-    public String getValue(String userName){
-        if("bob".equalsIgnoreCase(userName)){
-            return "50000";
-        } else if("alice".equalsIgnoreCase(userName)){
-            return "10000";
-        } else if("peter".equalsIgnoreCase(userName)){
-            return "30000";
-        } else {
-            return "0";
+    private String findGroup(String userName){
+
+        if(userName.equals("admin")){
+            return "admin";
+        } else if(userName.equals("welkson")){
+            return "support";
+        } else if(userName.equals("diego")){
+            return "support";
         }
+
+        return null;
     }
 }
