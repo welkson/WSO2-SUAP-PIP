@@ -44,7 +44,7 @@ PIP.AttributeDesignators.Designator.3=br.ifrn.xacml.pip.ldap.LdapFinder
 	
 	- Clique em "Test Evaluate".
 	
-``Comentário: a política (Extra/Policy.xml) espera um atributo de recurso /new_ticket/, uma ação GET, e "support" um grupo no LDAP (AttributeId=http://ifrn.edu.br/ldap/grupo), entretanto na requisição de teste (TryIt) só informamos o action, subject, e resource, portanto o WSO2 irá verificar se existe algum PIP registrado no sistema que possa repsonder por esse novo atributo (grupo), e encontrará a implementação deste PIP, que será executado, efetuará a consulta dos grupos do usuário "welkson"(subjectId) no AD, e retornará para avaliação no PDP.``  
+```Comentário: a política (Extra/Policy.xml) espera um atributo de recurso /new_ticket/, uma ação GET, e "support" um grupo no LDAP (AttributeId=http://ifrn.edu.br/ldap/grupo), entretanto na requisição de teste (TryIt) só informamos o action, subject, e resource, portanto o WSO2 irá verificar se existe algum PIP registrado no sistema que possa repsonder por esse novo atributo (grupo), e encontrará a implementação deste PIP, que será executado, efetuará a consulta dos grupos do usuário "welkson"(subjectId) no AD, e retornará para avaliação no PDP.```  
 
 
 
