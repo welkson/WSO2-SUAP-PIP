@@ -23,12 +23,16 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.wso2.carbon.identity.entitlement.pip.AbstractPIPAttributeFinder;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 /**
  * This is sample implementation of PIPAttributeFinder in WSO2 entitlement engine.
  */
 public class LdapFinder extends AbstractPIPAttributeFinder {
 
+    private static Log log = LogFactory.getLog(LdapFinder.class);
     
     private static final String LDAP_GROUP = "http://ifrn.edu.br/ldap/grupo";
 
@@ -39,24 +43,27 @@ public class LdapFinder extends AbstractPIPAttributeFinder {
 
     @Override
 	public void init(Properties properties)  throws Exception{
-        supportedAttributes.add(LDAP_GROUP);
+    		log.info("<<<<<<<<<<<<<<<<< Starting " + getModuleName() + "... >>>>>>>>>>>>>>>>>");
+    		supportedAttributes.add(LDAP_GROUP);
     }
 
     @Override
     public String getModuleName() {
-        return "LDAP PIP Finder v0.0.1";
+        return "LDAP PIP Finder v0.0.2";
     }
 
     @Override
     public Set<String> getAttributeValues(String subjectId, String resourceId, String actionId,
                                           String environmentId, String attributeId, String issuer) throws Exception{
 
-	System.out.println("subjectId: " + subjectId);
-	System.out.println("resourceId: " + resourceId);
-	System.out.println("actionId: " + actionId);
-	System.out.println("environmentId: " + environmentId);
-	System.out.println("attributeId: " + attributeId);
-	System.out.println("issuer: " + issuer);
+    	
+    	
+    	log.info(">>>>>>>>>>>>> subjectId: " + subjectId);
+    	log.info(">>>>>>>>>>>>> resourceId: " + resourceId);
+    	log.info(">>>>>>>>>>>>> actionId: " + actionId);
+    	log.info(">>>>>>>>>>>>> environmentId: " + environmentId);
+    	log.info(">>>>>>>>>>>>> attributeId: " + attributeId);
+    	log.info(">>>>>>>>>>>>> issuer: " + issuer);
 
     	Set<String> values = new HashSet<String>();
         if(LDAP_GROUP.equals(attributeId)){
