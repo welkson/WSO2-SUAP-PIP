@@ -81,8 +81,6 @@ https://svn.wso2.org/repos/wso2/carbon/platform/trunk/components/identity/org.ws
 
 https://svn.wso2.org/repos/wso2/people/asela/xacml/sample/elian/pip/   (PIP WSO2 sample)
 
-https://docs.wso2.com/display/IS530/Writing+a+Custom+Policy+Info+Point (Tutorial)
-
 http://umeshagunasinghe.blogspot.com.br/2013/10/fine-grained-authorization-with-pip.html
 
 http://www.forumsys.com/tutorials/integration-how-to/ldap/online-ldap-test-server/ (LDAP Server Demo)
@@ -90,5 +88,6 @@ http://www.forumsys.com/tutorials/integration-how-to/ldap/online-ldap-test-serve
 
 ### TO-DO:
 
--  mvn install:install-file -Dfile=org.wso2.carbon.identity.entitlement_5.10.92.jar -DgroupId=org.wso2.carbon -DartifactId=org.wso2.carbon.identity.entitlement -Dversion=5.10.92 -Dpackaging=jar
+- Configurações do AD no master-datasources.xml (https://docs.wso2.com/display/IS530/Writing+a+Custom+Policy+Info+Point)
+
 
