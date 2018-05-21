@@ -28,7 +28,7 @@ public class LdapUtil {
 		// String provider = "ldap://ldap.forumsys.com";
 
 		String userName = "monitor@ifrn.local";
-		String newPassword = "dgti.2010";
+		String newPassword = "demo";
 		String provider = "ldap://10.22.0.10:389";
 		String departamento = "";
 
