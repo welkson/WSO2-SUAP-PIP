@@ -11,7 +11,7 @@
 </Attributes>
 <Attributes Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject">
     <Attribute AttributeId="http://ifrn.edu.br/ldap/grupo" IncludeInResult="false">
-        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">welkson</AttributeValue>
+        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">1956951</AttributeValue>
     </Attribute>
 </Attributes>
 </Request>

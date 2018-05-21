@@ -1,7 +1,7 @@
-WSO2-SUAP-PIP
+WSO2-PIP-LDAP
 ========
 
-Implementação de referência de um WSO2 PIP de integração com Microsoft AD e Postgres para o SUAP/IFRN
+Implementação de referência de um WSO2 PIP de integração com LDAP/AD
 
 
 ### Compilação
@@ -22,7 +22,7 @@ cp target/br.ifrn.xacml.pip.ldap-1.0.0.jar IS_HOME/repository/components/lib
 Editar o arquivo IS_HOME/repository/conf/identity/entitlement.properties
 
 ```
-PIP.AttributeDesignators.Designator.3=br.ifrn.xacml.pip.ldap.LdapFinder
+PIP.AttributeDesignators.Designator.3=br.ifrn.xacml.pip.base.LdapFinder
 ```
 
 
@@ -38,7 +38,7 @@ PIP.AttributeDesignators.Designator.3=br.ifrn.xacml.pip.ldap.LdapFinder
 
 - Ainda em PAP clique em "Try It" e informe os seguintes valores:
 	- Resource: /new_ticket/
-	- Subject Name: welkson
+	- Subject Name: 1956951
 	- Action Name: GET
 	- Environment Name: 
 	
@@ -46,14 +46,13 @@ PIP.AttributeDesignators.Designator.3=br.ifrn.xacml.pip.ldap.LdapFinder
 	
 ```
 Comentário: a política (Extra/Policy.xml) espera um atributo de recurso /new_ticket/,
-uma ação GET, e "support" um grupo no LDAP (AttributeId=http://ifrn.edu.br/ldap/grupo), 
+uma ação GET, e "COINRE" como um atributo departamento do LDAP (AttributeId=http://ifrn.edu.br/ldap/departamento), 
 entretanto na requisição de teste (TryIt) só informamos o action, subject, e resource, 
 portanto o WSO2 irá verificar se existe algum PIP registrado no sistema que possa responder 
-por esse novo atributo (grupo), e encontrará a implementação deste PIP, que será executado, 
-efetuará a consulta dos grupos do usuário "welkson"(subjectId) no AD, e retornará para 
+por esse novo atributo (departamento), e encontrará a implementação deste PIP, que será executado, 
+efetuará a consulta dos grupos do usuário "1956951"(subjectId) no AD, e retornará para 
 avaliação no PDP.
 ```  
-
 
 
 ### Referências

@@ -22,8 +22,8 @@
          <AnyOf>
             <AllOf>
                <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">support</AttributeValue>
-                  <AttributeDesignator AttributeId="http://ifrn.edu.br/ldap/grupo" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true" />
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">COINRE</AttributeValue>
+                  <AttributeDesignator AttributeId="http://ifrn.edu.br/ldap/departamento" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true" />
                </Match>
             </AllOf>
          </AnyOf>

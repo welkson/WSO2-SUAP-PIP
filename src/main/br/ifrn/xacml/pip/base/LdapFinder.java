@@ -16,13 +16,16 @@
  * under the License.
  */
 
-package br.ifrn.xacml.pip.ldap;
+package br.ifrn.xacml.pip.base;
 
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
 import org.wso2.carbon.identity.entitlement.pip.AbstractPIPAttributeFinder;
+
+import br.ifrn.xacml.pip.ldap.LdapUtil;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -34,7 +37,7 @@ public class LdapFinder extends AbstractPIPAttributeFinder {
 
     private static Log log = LogFactory.getLog(LdapFinder.class);
     
-    private static final String LDAP_GROUP = "http://ifrn.edu.br/ldap/grupo";
+    private static final String LDAP_DEPARTMENT = "http://ifrn.edu.br/ldap/departamento";
 
 	/**
 	 * List of attribute finders supported by the this PIP attribute finder
@@ -44,20 +47,17 @@ public class LdapFinder extends AbstractPIPAttributeFinder {
     @Override
 	public void init(Properties properties)  throws Exception{
     		log.info("<<<<<<<<<<<<<<<<< Starting " + getModuleName() + "... >>>>>>>>>>>>>>>>>");
-    		supportedAttributes.add(LDAP_GROUP);
+    		supportedAttributes.add(LDAP_DEPARTMENT);
     }
 
     @Override
     public String getModuleName() {
-        return "LDAP PIP Finder v0.0.2";
+        return "LDAP PIP Finder v0.0.3";
     }
 
     @Override
     public Set<String> getAttributeValues(String subjectId, String resourceId, String actionId,
                                           String environmentId, String attributeId, String issuer) throws Exception{
-
-    	
-    	
     	log.info(">>>>>>>>>>>>> subjectId: " + subjectId);
     	log.info(">>>>>>>>>>>>> resourceId: " + resourceId);
     	log.info(">>>>>>>>>>>>> actionId: " + actionId);
@@ -66,7 +66,7 @@ public class LdapFinder extends AbstractPIPAttributeFinder {
     	log.info(">>>>>>>>>>>>> issuer: " + issuer);
 
     	Set<String> values = new HashSet<String>();
-        if(LDAP_GROUP.equals(attributeId)){
+        if(LDAP_DEPARTMENT.equals(attributeId)){
             values.add(findGroup(subjectId));
         }
         return values;
@@ -78,15 +78,6 @@ public class LdapFinder extends AbstractPIPAttributeFinder {
 	}
     
     private String findGroup(String userName){
-
-        if(userName.equals("admin")){
-            return "admin";
-        } else if(userName.equals("welkson")){
-            return "support";
-        } else if(userName.equals("diego")){
-            return "support";
-        }
-
-        return null;
+    		return  LdapUtil.findDepartmentByUser(userName);
     }
 }
