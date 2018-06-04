@@ -1,4 +1,4 @@
-package br.ifrn.xacml.pip.ldap;
+package br.edu.ifrn.pip.util;
 
 import java.util.Hashtable;
 
@@ -15,10 +15,10 @@ import javax.naming.directory.SearchResult;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import br.ifrn.xacml.pip.base.LdapFinder;
+import br.edu.ifrn.pip.SuapAttributeFinder;
 
 public class LdapUtil {
-    private static Log log = LogFactory.getLog(LdapFinder.class);
+    private static Log log = LogFactory.getLog(SuapAttributeFinder.class);
 
     public static String findDepartmentByUser(String user) {
     		log.info("Conectando ao ldap...");
@@ -32,7 +32,7 @@ public class LdapUtil {
 		String provider = "ldap://10.22.0.10:389";
 		String departamento = "";
 
-		Hashtable authEnv = new Hashtable(11);
+		Hashtable<String, String> authEnv = new Hashtable<String, String>(11);
 		authEnv.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
 		authEnv.put(Context.PROVIDER_URL, provider);
 		authEnv.put(Context.SECURITY_AUTHENTICATION, "simple");
@@ -51,7 +51,7 @@ public class LdapUtil {
 				String[] attrIDs = { "distinguishedName", "sn", "givenname", "mail", "department" };
 				constraints.setReturningAttributes(attrIDs);
 
-				NamingEnumeration answer = authContext.search("OU=IFRN,DC=ifrn,DC=local", "sAMAccountName=" + user, constraints);
+				NamingEnumeration<?> answer = authContext.search("OU=IFRN,DC=ifrn,DC=local", "sAMAccountName=" + user, constraints);
 				if (answer.hasMore()) {
 					Attributes attrs = ((SearchResult) answer.next()).getAttributes();
 					departamento = attrs.get("department").get().toString();

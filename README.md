@@ -1,7 +1,7 @@
-WSO2-PIP-LDAP
+WSO2-PIP-SUAP
 ========
 
-Implementação de referência de um WSO2 PIP de integração com LDAP/AD
+Implementação de referência de um WSO2 PIP de integração com LDAP/AD e PostgreSQL para o SUAP (IFRN)
 
 
 ### Compilação
@@ -22,7 +22,7 @@ cp target/br.ifrn.xacml.pip.ldap-1.0.0.jar IS_HOME/repository/components/lib
 Editar o arquivo IS_HOME/repository/conf/identity/entitlement.properties
 
 ```
-PIP.AttributeDesignators.Designator.3=br.ifrn.xacml.pip.base.LdapFinder
+PIP.AttributeDesignators.Designator.3=br.edu.ifrn.pip.SuapAttributeFinder
 ```
 
 
