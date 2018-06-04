@@ -1,16 +1,12 @@
 package br.edu.ifrn.pip.connectors;
 
+import br.edu.ifrn.pip.util.LdapUtil;
+
 public class LDAPConnector implements Connector {
 
-	/* (non-Javadoc)
-	 * @see br.edu.ifrn.pip.connectors.Connector#recuperarValorDeAtributo()
-	 */
 	@Override
-	public void recuperarValorDeAtributo() {
-		// conectar com o AD...
-		// consultar...
-		// retornar
-		System.out.println("Recuperei um atributo no Active Directory!");
+	public String recuperarValorDeAtributo(String valorAtributo) {
+	 	return  LdapUtil.findDepartmentByUser(valorAtributo);
 	}
-
+	
 }

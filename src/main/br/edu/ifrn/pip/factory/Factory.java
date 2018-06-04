@@ -9,6 +9,7 @@ import java.util.Properties;
 
 import br.edu.ifrn.pip.connectors.Connector;
 
+
 public class Factory {
 
 	private static Factory instance = null;
@@ -23,8 +24,12 @@ public class Factory {
 		return Factory.instance;
 	}
 
-	public Connector createConnector(String umTipoDeConnector) {
-		InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties");
+	public Connector criarConnector(String umTipoDeConnector) {
+		//remove domínio e mantém apenas URI
+		umTipoDeConnector = umTipoDeConnector.replace("http://www.ifrn.edu.br/", "");
+
+		//carrega configuração via properties
+		InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties");		
 		if (inputStream != null) {
 			Properties properties = new Properties();
 			try {
@@ -38,7 +43,8 @@ public class Factory {
 				throw new IllegalArgumentException("Connector desconhecido.");
 			}
 			try {
-				return (Connector) Class.forName(classeConcretaConnector).newInstance();		//reflexão
+				//retorna uma instância da classe via reflexão
+				return (Connector) Class.forName(classeConcretaConnector).newInstance();
 				
 			} catch (ClassNotFoundException exception) {
 				exception.printStackTrace();

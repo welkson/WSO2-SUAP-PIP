@@ -3,13 +3,13 @@ package br.edu.ifrn.pip;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
-
 import org.wso2.carbon.identity.entitlement.pip.AbstractPIPAttributeFinder;
-
-import br.edu.ifrn.pip.util.LdapUtil;
-
+import org.wso2.carbon.identity.entitlement.internal.EntitlementServiceComponent;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import br.edu.ifrn.pip.connectors.Connector;
+import br.edu.ifrn.pip.factory.Factory;
 
 public class SuapAttributeFinder extends AbstractPIPAttributeFinder {
 
@@ -22,32 +22,35 @@ public class SuapAttributeFinder extends AbstractPIPAttributeFinder {
 
     @Override
 	public void init(Properties properties)  throws Exception{
-    		log.info("<<<<<<<<<<<<<<<<< Iniciando PIP " + getModuleName() + "... >>>>>>>>>>>>>>>>>");
+    	properties = EntitlementServiceComponent.getEntitlementConfig().getEngineProperties();
+    	
+    	log.info("<<<<<<<<<<<<<<<<< Iniciando PIP " + getModuleName() + "... >>>>>>>>>>>>>>>>>");
+    		log.info(">>>> Registrando atributos [" + LDAP_DEPARTMENT + "," + PG_TICKETOWNER + "]...");
     		supportedAttributes.add(LDAP_DEPARTMENT);
     		supportedAttributes.add(PG_TICKETOWNER);
     		
-    		log.info("------------------------> Conteúdo do properties: " + properties.toString());
+    		log.info("----------> Teste: " + properties.getProperty("PIP.AttributeDesignators.Designator.4"));
     }
 
     @Override
     public String getModuleName() {
-        return "WSO2-SUAP-PIP v0.0.4";
+        return "WSO2-SUAP-PIP v0.0.5";
     }
 
     @Override
     public Set<String> getAttributeValues(String subjectId, String resourceId, String actionId,
                                           String environmentId, String attributeId, String issuer) throws Exception{
-    	log.info(">>>>>>>>>>>>> subjectId: " + subjectId);
-    	log.info(">>>>>>>>>>>>> resourceId: " + resourceId);
-    	log.info(">>>>>>>>>>>>> actionId: " + actionId);
-    	log.info(">>>>>>>>>>>>> environmentId: " + environmentId);
-    	log.info(">>>>>>>>>>>>> attributeId: " + attributeId);
-    	log.info(">>>>>>>>>>>>> issuer: " + issuer);
-
-    	Set<String> values = new HashSet<String>();
-        if(LDAP_DEPARTMENT.equals(attributeId)){
-            values.add(findGroup(subjectId));
-        }
+	    	log.info(">>>>>>>>>>>>> subjectId: " + subjectId);
+	    	log.info(">>>>>>>>>>>>> resourceId: " + resourceId);
+	    	log.info(">>>>>>>>>>>>> actionId: " + actionId);
+	    	log.info(">>>>>>>>>>>>> environmentId: " + environmentId);
+	    	log.info(">>>>>>>>>>>>> attributeId: " + attributeId);
+	    	log.info(">>>>>>>>>>>>> issuer: " + issuer);
+	
+	    	Set<String> values = new HashSet<String>();
+		Connector connector = Factory.getInstance().criarConnector(attributeId);
+		values.add(connector.recuperarValorDeAtributo(subjectId));
+    		
         return values;
 	}
             
@@ -55,8 +58,4 @@ public class SuapAttributeFinder extends AbstractPIPAttributeFinder {
 	public Set<String> getSupportedAttributes() {
 		return supportedAttributes;
 	}
-    
-    private String findGroup(String userName){
-    		return  LdapUtil.findDepartmentByUser(userName);
-    }
 }
