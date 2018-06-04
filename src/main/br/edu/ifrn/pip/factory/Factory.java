@@ -26,10 +26,11 @@ public class Factory {
 
 	public Connector criarConnector(String umTipoDeConnector) {
 		//remove domínio e mantém apenas URI
-		umTipoDeConnector = umTipoDeConnector.replace("http://ifrn.edu.br/", "");
+		umTipoDeConnector = umTipoDeConnector.replace("http://ifrn.edu.br/", "");	
 
 		//carrega configuração via properties
 		InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("wso2-pip-suap.properties");
+		System.out.println(inputStream);
 		if (inputStream != null) {
 			Properties properties = new Properties();
 			try {
