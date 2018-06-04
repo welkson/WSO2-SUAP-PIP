@@ -22,14 +22,10 @@ public class SuapAttributeFinder extends AbstractPIPAttributeFinder {
 
     @Override
 	public void init(Properties properties)  throws Exception{
-    	properties = EntitlementServiceComponent.getEntitlementConfig().getEngineProperties();
-    	
-    	log.info("<<<<<<<<<<<<<<<<< Iniciando PIP " + getModuleName() + "... >>>>>>>>>>>>>>>>>");
+    		log.info("<<<<<<<<<<<<<<<<< Iniciando PIP " + getModuleName() + "... >>>>>>>>>>>>>>>>>");
     		log.info(">>>> Registrando atributos [" + LDAP_DEPARTMENT + "," + PG_TICKETOWNER + "]...");
     		supportedAttributes.add(LDAP_DEPARTMENT);
-    		supportedAttributes.add(PG_TICKETOWNER);
-    		
-    		log.info("----------> Teste: " + properties.toString());
+    		supportedAttributes.add(PG_TICKETOWNER);    		
     }
 
     @Override

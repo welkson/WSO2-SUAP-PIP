@@ -30,7 +30,6 @@ public class Factory {
 
 		//carrega configuração via properties
 		InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("wso2-pip-suap.properties");
-		System.out.println(inputStream);
 		if (inputStream != null) {
 			Properties properties = new Properties();
 			try {
@@ -40,7 +39,6 @@ public class Factory {
 				exception.printStackTrace();
 			}
 			
-			System.out.println("AttributeId=" + umTipoDeConnector);
 			String classeConcretaConnector = properties.getProperty(umTipoDeConnector);
 			if (classeConcretaConnector == null || classeConcretaConnector.trim().isEmpty()) {
 				throw new IllegalArgumentException("Connector desconhecido.");
