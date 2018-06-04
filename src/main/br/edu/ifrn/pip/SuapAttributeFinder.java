@@ -29,7 +29,7 @@ public class SuapAttributeFinder extends AbstractPIPAttributeFinder {
     		supportedAttributes.add(LDAP_DEPARTMENT);
     		supportedAttributes.add(PG_TICKETOWNER);
     		
-    		log.info("----------> Teste: " + properties.getProperty("PIP.AttributeDesignators.Designator.4"));
+    		log.info("----------> Teste: " + properties.toString());
     }
 
     @Override

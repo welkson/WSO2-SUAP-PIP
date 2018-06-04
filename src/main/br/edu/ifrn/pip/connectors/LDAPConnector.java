@@ -5,8 +5,9 @@ import br.edu.ifrn.pip.util.LdapUtil;
 public class LDAPConnector implements Connector {
 
 	@Override
-	public String recuperarValorDeAtributo(String valorAtributo) {
-	 	return  LdapUtil.findDepartmentByUser(valorAtributo);
+	public String recuperarValorDeAtributo(String buscaPor) {
+		System.out.println("Chamando conector LDAP...");
+	 	return  LdapUtil.buscaDepartamentoPorUsuario(buscaPor);
 	}
 	
 }

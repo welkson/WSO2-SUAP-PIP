@@ -26,10 +26,10 @@ public class Factory {
 
 	public Connector criarConnector(String umTipoDeConnector) {
 		//remove domínio e mantém apenas URI
-		umTipoDeConnector = umTipoDeConnector.replace("http://www.ifrn.edu.br/", "");
+		umTipoDeConnector = umTipoDeConnector.replace("http://ifrn.edu.br/", "");
 
 		//carrega configuração via properties
-		InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties");		
+		InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("wso2-pip-suap.properties");
 		if (inputStream != null) {
 			Properties properties = new Properties();
 			try {
@@ -38,6 +38,8 @@ public class Factory {
 			} catch (IOException exception) {
 				exception.printStackTrace();
 			}
+			
+			System.out.println("AttributeId=" + umTipoDeConnector);
 			String classeConcretaConnector = properties.getProperty(umTipoDeConnector);
 			if (classeConcretaConnector == null || classeConcretaConnector.trim().isEmpty()) {
 				throw new IllegalArgumentException("Connector desconhecido.");
