@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -60,9 +61,12 @@ public class PostgresConnection {
 	
 		try {			
 			st = this.getConnection().createStatement();
-			ResultSet rs = st.executeQuery("SELECT nome " +
-					 					  "FROM pessoa " + 
-					 					  "LIMIT 1");
+			PreparedStatement pstmt = this.getConnection().prepareStatement("SELECT A.username " + 
+																		   "FROM centralservicos_chamado C " + 
+																		   "INNER JOIN auth_user A ON A.id = C.aberto_por_id " + 
+																		   "WHERE C.id = ?");
+			pstmt.setInt(1, Integer.parseInt(stringBusca));					
+			ResultSet rs = pstmt.executeQuery();
 
 			while ( rs.next() )
 		      {
