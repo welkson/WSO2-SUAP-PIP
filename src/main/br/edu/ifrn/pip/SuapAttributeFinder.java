@@ -15,8 +15,8 @@ public class SuapAttributeFinder extends AbstractPIPAttributeFinder {
 
     private static Log log = LogFactory.getLog(SuapAttributeFinder.class);
     
-    private static final String LDAP_DEPARTMENT = "http://ifrn.edu.br/ldap/departamento";
-    private static final String PG_TICKETOWNER = "http://ifrn.edu.br/pg/ticket_owner";
+    private static final String LDAP_DEPARTMENT = "http://ifrn.edu.br/usuario/departamento";
+    private static final String PG_TICKETOWNER = "http://ifrn.edu.br/centralservicos/donoticket";
 
 	private Set<String> supportedAttributes = new HashSet<String>();
 

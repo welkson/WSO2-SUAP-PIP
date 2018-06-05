@@ -19,11 +19,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import br.edu.ifrn.pip.SuapAttributeFinder;
+import br.edu.ifrn.pip.factory.Factory;
 
-public class LdapUtil {
-    private static Log log = LogFactory.getLog(SuapAttributeFinder.class);
+public class LdapConnection {
+	private static Log log = LogFactory.getLog(SuapAttributeFinder.class);
 
-    public static String buscaDepartamentoPorUsuario(String umUsuario) {
+    //TODO: implementar singleton para conexão
+    
+       
+    public static String buscaUsuarioDepartamento(String stringBusca) {
     		log.info("Conectando ao ldap...");
 		String ldapUsuario = "";
 		String ldapSenha = "";
@@ -54,7 +58,7 @@ public class LdapUtil {
 
 		try {
 			DirContext authContext = new InitialDirContext(authEnv);
-			log.info("Autenticação LDAP OK! Buscando por usuário " + umUsuario + "...");
+			log.info("Autenticação LDAP OK! Buscando por usuário " + stringBusca + "...");
 
 			try {
 
@@ -64,7 +68,7 @@ public class LdapUtil {
 				String[] attrIDs = { "distinguishedName", "sn", "givenname", "mail", "department" };
 				constraints.setReturningAttributes(attrIDs);
 
-				NamingEnumeration<?> answer = authContext.search("OU=IFRN,DC=ifrn,DC=local", "sAMAccountName=" + umUsuario, constraints);
+				NamingEnumeration<?> answer = authContext.search("OU=IFRN,DC=ifrn,DC=local", "sAMAccountName=" + stringBusca, constraints);
 				if (answer.hasMore()) {
 					Attributes attrs = ((SearchResult) answer.next()).getAttributes();
 					departamento = attrs.get("department").get().toString();
