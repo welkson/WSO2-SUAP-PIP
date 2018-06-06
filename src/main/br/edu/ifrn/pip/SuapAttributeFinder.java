@@ -10,13 +10,11 @@ import org.wso2.carbon.identity.entitlement.pip.AbstractPIPAttributeFinder;
 
 import br.edu.ifrn.pip.connectors.Connector;
 import br.edu.ifrn.pip.factory.Factory;
+import br.edu.ifrn.pip.AtributosConstantes;
 
 public class SuapAttributeFinder extends AbstractPIPAttributeFinder {
 
 	private static Log log = LogFactory.getLog(SuapAttributeFinder.class);
-
-	private static final String USER_DEPARTMENT = "http://ifrn.edu.br/usuario/departamento";
-	private static final String TICKET_OWNER = "http://ifrn.edu.br/centralservicos/donoticket";
 
 	private Set<String> supportedAttributes = new HashSet<String>();
 
@@ -24,9 +22,9 @@ public class SuapAttributeFinder extends AbstractPIPAttributeFinder {
 	public void init(Properties properties) throws Exception {
 		log.info("<<<<<<<<<<<<<<<<< Iniciando PIP " + getModuleName() + "... >>>>>>>>>>>>>>>>>");
 		
-		log.info(">>>> Registrando atributos [" + USER_DEPARTMENT + "," + TICKET_OWNER + "]...");
-		supportedAttributes.add(USER_DEPARTMENT);
-		supportedAttributes.add(TICKET_OWNER);
+		log.info(">>>> Registrando atributos...");
+		supportedAttributes.add(AtributosConstantes.ATRIB_USUARIO_DEPARTAMENTO);
+		supportedAttributes.add(AtributosConstantes.ATRIB_CENTRALSERV_DONOTICKET);
 	}
 
 	@Override

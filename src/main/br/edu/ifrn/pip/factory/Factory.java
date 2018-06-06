@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import br.edu.ifrn.pip.AtributosConstantes;
 import br.edu.ifrn.pip.connectors.AbstractConnector;
 import br.edu.ifrn.pip.connectors.Connector;
 
@@ -27,7 +28,7 @@ public class Factory {
 
 	public Connector criarConnector(final String umTipoDeConnector) {
 		//remove domínio e mantém apenas URI
-		String atributoUri = umTipoDeConnector.replace("http://ifrn.edu.br/", "");	
+		String atributoUri = umTipoDeConnector.replace(AtributosConstantes.DOMINIO_BASE, "");	
 
 		//carrega configuração via properties
 		InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("wso2-pip-suap.properties");

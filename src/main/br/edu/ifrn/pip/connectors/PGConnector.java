@@ -2,6 +2,7 @@ package br.edu.ifrn.pip.connectors;
 
 import java.sql.SQLException;
 
+import br.edu.ifrn.pip.AtributosConstantes;
 import br.edu.ifrn.pip.util.PostgresConnection;
 
 public class PGConnector extends AbstractConnector {
@@ -12,9 +13,17 @@ public class PGConnector extends AbstractConnector {
 		String resultado = "";
 						
 		try {
-			resultado = PostgresConnection.getInstance().buscaCentralservicosDonoticket(buscaPor);
+			switch (atributoId) {
+			case AtributosConstantes.ATRIB_CENTRALSERV_DONOTICKET:
+				resultado = PostgresConnection.getInstance().buscarDonoTicket(buscaPor);
+				break;
+
+			default:
+				break;
+			}
 			
-		} catch (SQLException e) {
+			
+		} catch (SQLException e) {	//TODO: tratar no PostgresConnection
 			e.printStackTrace();
 		}
 		

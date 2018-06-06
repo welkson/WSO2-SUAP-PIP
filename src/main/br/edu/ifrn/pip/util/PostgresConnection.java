@@ -56,7 +56,7 @@ public class PostgresConnection {
         return instance;
     }
     
-    public String buscaCentralservicosDonoticket(String stringBusca) {			//TODO: melhorar nome do método
+    public String buscarDonoTicket(String stringBusca) {			//TODO: melhorar nome do método
     		String resultadoBusca = "";
 	
 		try {					
@@ -64,7 +64,7 @@ public class PostgresConnection {
 																		   "FROM centralservicos_chamado C " + 
 																		   "INNER JOIN auth_user A ON A.id = C.aberto_por_id " + 
 																		   "WHERE C.id = ?");
-			pstmt.setInt(1, Integer.parseInt(stringBusca));		//TODO: tratar antes do preparedstatement			
+			pstmt.setInt(1, Integer.parseInt(stringBusca));					
 			ResultSet rs = pstmt.executeQuery();
 
 			while ( rs.next() )
