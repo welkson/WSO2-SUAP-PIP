@@ -8,14 +8,21 @@ Implementação de referência de um WSO2 PIP de integração com LDAP/AD e Post
 
 ```
 $ mvn clean install
+
+ou sem testes:
+
+$ mvn clean install -DskipTests 
 ```
 
 
 ### Instalação
 
 ```
-cp target/br.ifrn.xacml.pip.ldap-1.0.0.jar IS_HOME/repository/components/lib
+cp target/br.ifrn.xacml.pip.ldap-1.0.X.jar IS_HOME/repository/components/lib
+cp ~/.m2/repository/org/postgresql/postgresql/42.2.2/postgresql-42.2.2.jar IS_HOME/bin
+
 ```
+
 
 ### Configuração no WSO2
 
@@ -85,9 +92,5 @@ http://umeshagunasinghe.blogspot.com.br/2013/10/fine-grained-authorization-with-
 
 http://www.forumsys.com/tutorials/integration-how-to/ldap/online-ldap-test-server/ (LDAP Server Demo)
 
-
-### TO-DO:
-
-- Configurações do AD no master-datasources.xml (https://docs.wso2.com/display/IS530/Writing+a+Custom+Policy+Info+Point)
 
 

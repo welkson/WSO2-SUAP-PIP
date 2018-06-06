@@ -8,7 +8,7 @@
 	<artifactId>br.ifrn.xacml.pip.ldap</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0.0</version>
-	<name>LDAP PIP</name>
+	<name>WSO2-SUAP-PIP</name>
 
 	<repositories>
 		<repository>
@@ -47,6 +47,17 @@
 			<version>4.2.2</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -62,6 +73,14 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>wso2-pip-suap.properties</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 
 </project>

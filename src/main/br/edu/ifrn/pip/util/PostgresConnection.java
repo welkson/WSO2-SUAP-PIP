@@ -17,6 +17,7 @@ public class PostgresConnection {
 	private String pgSenha;
 	private String pgUrl;
 
+	//DAO 
     private PostgresConnection() throws SQLException {
         try {
             Class.forName("org.postgresql.Driver");
@@ -55,17 +56,15 @@ public class PostgresConnection {
         return instance;
     }
     
-    public String buscaCentralservicosDonoticket(String stringBusca) {
+    public String buscaCentralservicosDonoticket(String stringBusca) {			//TODO: melhorar nome do método
     		String resultadoBusca = "";
-		Statement st;
 	
-		try {			
-			st = this.getConnection().createStatement();
-			PreparedStatement pstmt = this.getConnection().prepareStatement("SELECT A.username " + 
+		try {					
+			PreparedStatement pstmt = this.getConnection().prepareStatement("SELECT A.username " +										//TODO: usar constante 
 																		   "FROM centralservicos_chamado C " + 
 																		   "INNER JOIN auth_user A ON A.id = C.aberto_por_id " + 
 																		   "WHERE C.id = ?");
-			pstmt.setInt(1, Integer.parseInt(stringBusca));					
+			pstmt.setInt(1, Integer.parseInt(stringBusca));		//TODO: tratar antes do preparedstatement			
 			ResultSet rs = pstmt.executeQuery();
 
 			while ( rs.next() )
@@ -73,7 +72,6 @@ public class PostgresConnection {
 		         resultadoBusca = rs.getString (1);
 		      }
 		      rs.close();
-		      st.close();				
 
 		} catch (SQLException e) {
 		      System.err.println(e.getMessage());

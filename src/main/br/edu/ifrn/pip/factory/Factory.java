@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import br.edu.ifrn.pip.connectors.AbstractConnector;
 import br.edu.ifrn.pip.connectors.Connector;
 
 
@@ -24,9 +25,9 @@ public class Factory {
 		return Factory.instance;
 	}
 
-	public Connector criarConnector(String umTipoDeConnector) {
+	public Connector criarConnector(final String umTipoDeConnector) {
 		//remove domínio e mantém apenas URI
-		umTipoDeConnector = umTipoDeConnector.replace("http://ifrn.edu.br/", "");	
+		String atributoUri = umTipoDeConnector.replace("http://ifrn.edu.br/", "");	
 
 		//carrega configuração via properties
 		InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("wso2-pip-suap.properties");
@@ -39,13 +40,15 @@ public class Factory {
 				exception.printStackTrace();
 			}
 			
-			String classeConcretaConnector = properties.getProperty(umTipoDeConnector);
+			String classeConcretaConnector = properties.getProperty(atributoUri);
 			if (classeConcretaConnector == null || classeConcretaConnector.trim().isEmpty()) {
 				throw new IllegalArgumentException("Connector desconhecido.");
 			}
 			try {
 				//retorna uma instância da classe via reflexão
-				return (Connector) Class.forName(classeConcretaConnector).newInstance();
+				AbstractConnector conector = (AbstractConnector) Class.forName(classeConcretaConnector).newInstance();
+				conector.setAtributoId(umTipoDeConnector);
+				return conector;
 				
 			} catch (ClassNotFoundException exception) {
 				exception.printStackTrace();

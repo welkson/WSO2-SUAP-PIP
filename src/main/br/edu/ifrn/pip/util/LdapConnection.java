@@ -26,7 +26,7 @@ public class LdapConnection {
 
     //TODO: implementar singleton para conexão
     
-       
+
     public static String buscaUsuarioDepartamento(String stringBusca) {
     		log.info("Conectando ao ldap...");
 		String ldapUsuario = "";
@@ -34,6 +34,7 @@ public class LdapConnection {
 		String ldapServidor = "";
 		String departamento = "";
 
+		//TODO: criar classe utilitária para recuperar configuração (usar singleton)
     		InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("wso2-pip-suap.properties");		
     		if (inputStream != null) {
     			Properties properties = new Properties();
