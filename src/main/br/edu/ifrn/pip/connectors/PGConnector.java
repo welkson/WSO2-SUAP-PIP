@@ -12,7 +12,7 @@ public class PGConnector implements Connector {
 	public String recuperarValorDeAtributo(String buscaPor) {
 		String resultado = "";
 		try {
-			Method metodoBusca = PostgresConnection.class.getMethod("buscaCentralservicosDonoticket", String.class);
+			Method metodoBusca = PostgresConnection.class.getMethod("buscaCentralservicosDonoticket", String.class); //TODO: recuperar o nome do método dinamicamente
 			resultado = (String) metodoBusca.invoke(PostgresConnection.getInstance(), buscaPor);
 			
 		} catch (NoSuchMethodException e) {
