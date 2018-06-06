@@ -1,15 +1,12 @@
 package br.ifrn.xacml.pip.tests;
 
-import java.sql.SQLException;
-
-import br.edu.ifrn.pip.util.PostgresConnection;
+import br.edu.ifrn.pip.connectors.Connector;
+import br.edu.ifrn.pip.factory.Factory;
 
 public class PgTests {
 	public static void main(String[] args) {
-		try {
-			System.out.println(PostgresConnection.getInstance().buscaCentralservicosDonoticket("200"));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}		
+		Connector connector = Factory.getInstance().criarConnector("http://ifrn.edu.br/centralservicos/donoticket");
+
+		System.out.println("Dono do Ticket: " + connector.recuperarValorDeAtributo("1"));
+	}
 }
