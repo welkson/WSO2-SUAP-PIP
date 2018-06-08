@@ -11,7 +11,7 @@ public class PGConnector extends AbstractConnector {
 	public String recuperarValorDeAtributo(String buscaPor) {
 		String atributoId = super.getAtributoId();
 		String resultado = "";
-						
+
 		try {
 			switch (atributoId) {
 			case AtributosConstantes.ATRIB_CENTRALSERV_DONOTICKET:
@@ -26,7 +26,7 @@ public class PGConnector extends AbstractConnector {
 		} catch (SQLException e) {	//TODO: tratar no PostgresConnection
 			e.printStackTrace();
 		}
-		
+
 		return resultado;
 	}
 

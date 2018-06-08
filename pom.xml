@@ -7,7 +7,7 @@
 	<groupId>br.ifrn</groupId>
 	<artifactId>WSO2-SUAP-PIP</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>WSO2-SUAP-PIP</name>
 
 	<repositories>

@@ -32,6 +32,9 @@ Editar o arquivo IS_HOME/repository/conf/identity/entitlement.properties
 PIP.AttributeDesignators.Designator.3=br.edu.ifrn.pip.SuapAttributeFinder
 ```
 
+Onde "3" é o ID na sequência dos AttributeDesignators. 
+ATENÇÃO: Se no properties já tiver o AttributeDesignators 1 e 2 por exemplo, e o novo for definido como 4 (fora de sequência), o mesmo NÃO SERÁ CARREGADO.
+
 
 ### Execução
 
@@ -60,6 +63,10 @@ por esse novo atributo (departamento), e encontrará a implementação deste PIP
 efetuará a consulta dos grupos do usuário "1956951"(subjectId) no AD, e retornará para 
 avaliação no PDP.
 ```  
+
+### Ambiente de desenvolvimento
+
+O projeto foi construído usando Maven e Eclipse. Após ajustes no pom.xml clique com botão direito no projeto -> Maven -> Update Project.
 
 
 ### Referências
