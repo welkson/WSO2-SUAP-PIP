@@ -18,7 +18,7 @@ $ mvn clean install -DskipTests
 ### Instalação
 
 ```
-cp target/br.ifrn.xacml.pip.ldap-1.0.X.jar IS_HOME/repository/components/lib
+cp target/WSO2-SUAP-PIP-1.0.1.jar IS_HOME/repository/components/lib
 cp ~/.m2/repository/org/postgresql/postgresql/42.2.2/postgresql-42.2.2.jar IS_HOME/bin
 
 ```
