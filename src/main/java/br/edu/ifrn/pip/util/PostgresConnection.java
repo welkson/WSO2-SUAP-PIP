@@ -37,6 +37,7 @@ public class PostgresConnection {
 	    		}            
             
             this.connection = DriverManager.getConnection(pgUrl, pgUsuario, pgSenha);
+                        
         } catch (ClassNotFoundException ex) {
             System.out.println("Falha ao conectar no banco " + ex.getMessage());
         }

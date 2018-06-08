@@ -19,37 +19,35 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import br.edu.ifrn.pip.SuapAttributeFinder;
-import br.edu.ifrn.pip.factory.Factory;
 
 public class LdapConnection {
 	private static Log log = LogFactory.getLog(SuapAttributeFinder.class);
+	private static LdapConnection instance;
+	private DirContext connection;
 
-    //TODO: implementar singleton para conexão
-    
-
-    public static String buscaUsuarioDepartamento(String stringBusca) {
-    		log.info("Conectando ao ldap...");
+	private LdapConnection() {
+		log.info("Conectando ao ldap...");
 		String ldapUsuario = "";
 		String ldapSenha = "";
 		String ldapServidor = "";
-		String departamento = "";
 
-		//TODO: criar classe utilitária para recuperar configuração (usar singleton)
-    		InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("wso2-pip-suap.properties");		
-    		if (inputStream != null) {
-    			Properties properties = new Properties();
-    			try {
-    				properties.load(inputStream);
-    				
-    				ldapUsuario = properties.getProperty("ldap.usuario");
-    				ldapSenha = properties.getProperty("ldap.senha");
-    				ldapServidor = properties.getProperty("ldap.servidor");
+		// TODO: criar classe utilitária para recuperar configuração (usar singleton)
+		InputStream inputStream = Thread.currentThread().getContextClassLoader()
+				.getResourceAsStream("wso2-pip-suap.properties");
+		if (inputStream != null) {
+			Properties properties = new Properties();
+			try {
+				properties.load(inputStream);
 
-    			} catch (IOException exception) {
-    				exception.printStackTrace();
-    			}
-    		}
-    		
+				ldapUsuario = properties.getProperty("ldap.usuario");
+				ldapSenha = properties.getProperty("ldap.senha");
+				ldapServidor = properties.getProperty("ldap.servidor");
+
+			} catch (IOException exception) {
+				exception.printStackTrace();
+			}
+		}
+
 		Hashtable<String, String> authEnv = new Hashtable<String, String>(11);
 		authEnv.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
 		authEnv.put(Context.PROVIDER_URL, ldapServidor);
@@ -58,30 +56,7 @@ public class LdapConnection {
 		authEnv.put(Context.SECURITY_CREDENTIALS, ldapSenha);
 
 		try {
-			DirContext authContext = new InitialDirContext(authEnv);
-			log.info("Autenticação LDAP OK! Buscando por usuário " + stringBusca + "...");
-
-			try {
-
-				SearchControls constraints = new SearchControls();
-				constraints.setSearchScope(SearchControls.SUBTREE_SCOPE);
-
-				String[] attrIDs = { "distinguishedName", "sn", "givenname", "mail", "department" };
-				constraints.setReturningAttributes(attrIDs);
-
-				NamingEnumeration<?> answer = authContext.search("OU=IFRN,DC=ifrn,DC=local", "sAMAccountName=" + stringBusca, constraints);
-				if (answer.hasMore()) {
-					Attributes attrs = ((SearchResult) answer.next()).getAttributes();
-					departamento = attrs.get("department").get().toString();
-					log.info("Usuário encontrado (departamento: " + departamento + ")");
-					
-				} else {
-					log.error("Usuário Inválido");
-				}
-				
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
+			this.connection = new InitialDirContext(authEnv);
 
 		} catch (AuthenticationException authEx) {
 			log.error("Erro na autenticação! ");
@@ -89,8 +64,51 @@ public class LdapConnection {
 
 		} catch (NamingException namEx) {
 			log.error("Problemas na conexão! " + namEx.toString());
+
 		}
-		
+	}
+
+	public DirContext getConnection() {
+		return connection;
+	}
+
+	public static LdapConnection getInstance() {
+		if (instance == null) {
+			instance = new LdapConnection();
+		}
+
+		return instance;
+
+	}
+
+	public static String buscaUsuarioDepartamento(String stringBusca) {
+		String departamento = "";
+
+		try {
+			DirContext authContext = getInstance().getConnection();
+			log.info("Autenticação LDAP OK! Buscando por usuário " + stringBusca + "...");
+
+			SearchControls constraints = new SearchControls();
+			constraints.setSearchScope(SearchControls.SUBTREE_SCOPE);
+
+			String[] attrIDs = { "distinguishedName", "sn", "givenname", "mail", "department" };
+			constraints.setReturningAttributes(attrIDs);
+
+			NamingEnumeration<?> answer = authContext.search("OU=IFRN,DC=ifrn,DC=local",
+					"sAMAccountName=" + stringBusca, constraints);
+			if (answer.hasMore()) {
+				Attributes attrs = ((SearchResult) answer.next()).getAttributes();
+				departamento = attrs.get("department").get().toString();
+				log.info("Usuário encontrado (departamento: " + departamento + ")");
+
+			} else {
+				log.error("Usuário Inválido");
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
 		return departamento;
 	}
 }
