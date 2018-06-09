@@ -1,9 +1,6 @@
 package br.edu.ifrn.pip.util;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Hashtable;
-import java.util.Properties;
 
 import javax.naming.AuthenticationException;
 import javax.naming.Context;
@@ -27,33 +24,13 @@ public class LdapConnection {
 
 	private LdapConnection() {
 		log.info("Conectando ao ldap...");
-		String ldapUsuario = "";
-		String ldapSenha = "";
-		String ldapServidor = "";
-
-		// TODO: criar classe utilitária para recuperar configuração (usar singleton)
-		InputStream inputStream = Thread.currentThread().getContextClassLoader()
-				.getResourceAsStream("wso2-pip-suap.properties");
-		if (inputStream != null) {
-			Properties properties = new Properties();
-			try {
-				properties.load(inputStream);
-
-				ldapUsuario = properties.getProperty("ldap.usuario");
-				ldapSenha = properties.getProperty("ldap.senha");
-				ldapServidor = properties.getProperty("ldap.servidor");
-
-			} catch (IOException exception) {
-				exception.printStackTrace();
-			}
-		}
-
+		ConfigUtil config = ConfigUtil.getInstance();
 		Hashtable<String, String> authEnv = new Hashtable<String, String>(11);
 		authEnv.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-		authEnv.put(Context.PROVIDER_URL, ldapServidor);
+		authEnv.put(Context.PROVIDER_URL, config.recuperarValorDeConfiguracao("ldap.servidor"));
 		authEnv.put(Context.SECURITY_AUTHENTICATION, "simple");
-		authEnv.put(Context.SECURITY_PRINCIPAL, ldapUsuario);
-		authEnv.put(Context.SECURITY_CREDENTIALS, ldapSenha);
+		authEnv.put(Context.SECURITY_PRINCIPAL, config.recuperarValorDeConfiguracao("ldap.usuario"));
+		authEnv.put(Context.SECURITY_CREDENTIALS, config.recuperarValorDeConfiguracao("ldap.senha"));
 
 		try {
 			this.connection = new InitialDirContext(authEnv);
@@ -105,8 +82,8 @@ public class LdapConnection {
 				log.error("Usuário Inválido");
 			}
 
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception exception) {
+			log.error("Ocorreu um erro ao realizar uma consulta no LDAP.", exception);
 		}
 
 		return departamento;

@@ -1,11 +1,11 @@
-package br.ifrn.xacml.pip.tests;
+package br.edu.ifrn.pip.connectors;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
 import br.edu.ifrn.pip.AtributosConstantes;
-import br.edu.ifrn.pip.connectors.Connector;
 import br.edu.ifrn.pip.factory.Factory;
 
 public class TestPostgres {
