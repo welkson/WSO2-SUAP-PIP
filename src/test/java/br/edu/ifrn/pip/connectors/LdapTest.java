@@ -1,4 +1,4 @@
-package br.ifrn.xacml.pip.tests;
+package br.edu.ifrn.pip.connectors;
 
 import br.edu.ifrn.pip.AtributosConstantes;
 import br.edu.ifrn.pip.connectors.Connector;
