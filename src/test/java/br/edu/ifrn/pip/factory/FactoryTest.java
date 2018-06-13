@@ -91,7 +91,7 @@ public class FactoryTest {
 	 */
 	@Test
 	public void testCriarConnector() {
-		Connector connector = Factory.getInstance().criarConnector("centralservicos/donoticket");
+		Connector connector = Factory.getInstance().criarConnector("centralservicos/solicitante");
 		assertNotNull("Deveria ter criado corretamente o conector, pois o tipo existe.", connector);
 	}
 

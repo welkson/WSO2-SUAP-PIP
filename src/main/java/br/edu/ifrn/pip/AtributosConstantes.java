@@ -5,6 +5,7 @@ public class AtributosConstantes {
 	
 	public static final String ATRIB_USUARIO_DEPARTAMENTO = "http://ifrn.edu.br/usuario/departamento";
 
-	public static final String ATRIB_CENTRALSERV_DONOTICKET = "http://ifrn.edu.br/centralservicos/donoticket";
-	
+	public static final String ATRIB_CENTRALSERV_SOLICITANTE = "http://ifrn.edu.br/centralservicos/solicitante";
+
+	public static final String ATRIB_CENTRALSERV_ATENDENTE = "http://ifrn.edu.br/centralservicos/atendente";
 }

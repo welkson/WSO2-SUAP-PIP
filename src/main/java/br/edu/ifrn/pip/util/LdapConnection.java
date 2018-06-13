@@ -16,6 +16,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import br.edu.ifrn.pip.SuapAttributeFinder;
+import br.edu.ifrn.pip.TipoAtributo;
 
 public class LdapConnection {
 	private static Log log = LogFactory.getLog(SuapAttributeFinder.class);

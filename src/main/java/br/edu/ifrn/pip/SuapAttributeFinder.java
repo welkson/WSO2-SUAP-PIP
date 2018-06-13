@@ -20,11 +20,12 @@ public class SuapAttributeFinder extends AbstractPIPAttributeFinder {
 
 	@Override
 	public void init(Properties properties) throws Exception {
-		log.info("<<<<<<<<<<<<<<<<< Iniciando PIP " + getModuleName() + "... >>>>>>>>>>>>>>>>>");
+		log.info("<<<<<<<<<<<<<<<<< Iniciando PIP [" + getModuleName() + "] (build 1)... >>>>>>>>>>>>>>>>>");
 		
 		log.info(">>>> Registrando atributos...");
 		supportedAttributes.add(AtributosConstantes.ATRIB_USUARIO_DEPARTAMENTO);
-		supportedAttributes.add(AtributosConstantes.ATRIB_CENTRALSERV_DONOTICKET);
+		supportedAttributes.add(AtributosConstantes.ATRIB_CENTRALSERV_SOLICITANTE);
+		supportedAttributes.add(AtributosConstantes.ATRIB_CENTRALSERV_ATENDENTE);
 	}
 
 	@Override
@@ -34,17 +35,26 @@ public class SuapAttributeFinder extends AbstractPIPAttributeFinder {
 
 	@Override
 	public Set<String> getAttributeValues(String subjectId, String resourceId, String actionId, String environmentId,
-			String attributeId, String issuer) throws Exception {
-		log.info(">>>>>>>>>>>>> subjectId: " + subjectId);
-		log.info(">>>>>>>>>>>>> resourceId: " + resourceId);
-		log.info(">>>>>>>>>>>>> actionId: " + actionId);
-		log.info(">>>>>>>>>>>>> environmentId: " + environmentId);
-		log.info(">>>>>>>>>>>>> attributeId: " + attributeId);
-		log.info(">>>>>>>>>>>>> issuer: " + issuer);
+			String attributeId, String issuer) throws Exception {		
+		//popula valores do atributo em um objeto
+		TipoAtributo atributo = new TipoAtributo();
+		atributo.setNomeAtributo(attributeId);
+		atributo.setSujeito(subjectId);
+		atributo.setAcao(actionId);
+		atributo.setRecurso(resourceId);
+		atributo.setAmbiente(environmentId);
+		atributo.setEmissor(issuer);
+
+		log.info(">>>>>>>>>>>>> subjectId: " + atributo.getSujeito());
+		log.info(">>>>>>>>>>>>> resourceId: " + atributo.getRecurso());
+		log.info(">>>>>>>>>>>>> actionId: " + atributo.getAcao());
+		log.info(">>>>>>>>>>>>> environmentId: " + atributo.getAmbiente());
+		log.info(">>>>>>>>>>>>> attributeId: " + atributo.getNomeAtributo());
+		log.info(">>>>>>>>>>>>> issuer: " + atributo.getEmissor());
 
 		Set<String> values = new HashSet<String>();
 		Connector connector = Factory.getInstance().criarConnector(attributeId);
-		values.add(connector.recuperarValorDeAtributo(subjectId));
+		values.add(connector.recuperarValorDeAtributo(atributo));  //TODO: criar objeto e popular todo os 4 atriutos (subjectId, resource, etc.)
 
 		return values;
 	}

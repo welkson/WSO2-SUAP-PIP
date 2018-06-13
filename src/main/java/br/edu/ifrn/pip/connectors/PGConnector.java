@@ -5,13 +5,14 @@ import java.sql.SQLException;
 import org.apache.commons.lang.StringUtils;
 
 import br.edu.ifrn.pip.AtributosConstantes;
+import br.edu.ifrn.pip.TipoAtributo;
 import br.edu.ifrn.pip.util.PostgresConnection;
 
 public class PGConnector extends AbstractConnector {
 
 	@Override
-	public String recuperarValorDeAtributo(String buscaPor) {
-		if (StringUtils.isBlank(buscaPor)) {
+	public String recuperarValorDeAtributo(TipoAtributo atributo) {
+		if (StringUtils.isBlank(atributo.getNomeAtributo())) {
 			throw new IllegalArgumentException("O parâmetro da busca não foi informado.");
 		}
 		String atributoId = super.getAtributoId();
@@ -19,8 +20,8 @@ public class PGConnector extends AbstractConnector {
 
 		try {
 			switch (atributoId) {
-			case AtributosConstantes.ATRIB_CENTRALSERV_DONOTICKET:
-				resultado = PostgresConnection.getInstance().buscarDonoTicket(buscaPor);
+			case AtributosConstantes.ATRIB_CENTRALSERV_SOLICITANTE:
+				resultado = PostgresConnection.getInstance().buscarPorSolicitante(atributo.getRecurso());
 				break;
 
 			default:

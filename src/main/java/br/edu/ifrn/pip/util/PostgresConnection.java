@@ -5,11 +5,15 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.StringJoiner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import br.edu.ifrn.pip.SuapAttributeFinder;
+import br.edu.ifrn.pip.TipoAtributo;
 
 public class PostgresConnection {
 	private static Log log = LogFactory.getLog(SuapAttributeFinder.class);
@@ -46,15 +50,25 @@ public class PostgresConnection {
 		return instance;
 	}
 
-	public String buscarDonoTicket(String stringBusca) {			//TODO: melhorar nome do método
+	public String buscarPorSolicitante(String stringBusca) {			//TODO: melhorar nome do método
+		log.info("debug1 -> stringBusca: " + stringBusca);
+		
+		//recupera id do chamado a partir da URL (resourceId)
+		String regex = "\\/chamado\\/(.*?)(\\/|$)";
+	    Pattern pattern = Pattern.compile(regex);
+	    Matcher matcher = pattern.matcher(stringBusca);
+	    matcher.find();
+	    Integer idChamado = Integer.valueOf(matcher.group(1));
+	    log.info("idChamado: " + idChamado.toString());
+		
 		String resultadoBusca = "";
 
 		try {
 			PreparedStatement pstmt = this.getConnection().prepareStatement("SELECT A.username " +										//TODO: usar constante
-					"FROM centralservicos_chamado C " +
-					"INNER JOIN auth_user A ON A.id = C.aberto_por_id " +
-					"WHERE C.id = ?");
-			pstmt.setInt(1, Integer.parseInt(stringBusca));
+																		   "FROM centralservicos_chamado C " +
+																		   "INNER JOIN auth_user A ON A.id = C.aberto_por_id " +
+																		   "WHERE C.id = ?");
+			pstmt.setInt(1,idChamado);
 			ResultSet rs = pstmt.executeQuery();
 
 			while ( rs.next() )
@@ -66,6 +80,8 @@ public class PostgresConnection {
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
+		log.info("<<<<<<<<<<<<<<<<< stringBusca: " + stringBusca + " / resultadoBusca: " + resultadoBusca);
+
 		return resultadoBusca;
 	}
 }
