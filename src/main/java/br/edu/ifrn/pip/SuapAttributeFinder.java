@@ -22,7 +22,7 @@ public class SuapAttributeFinder extends AbstractPIPAttributeFinder {
 
 	@Override
 	public void init(Properties properties) throws Exception {
-		log.info("<<<<<<<<<<<<<<<<< Iniciando PIP [" + getModuleName() + "] (build 1.2)... >>>>>>>>>>>>>>>>>");
+		log.info("<<<<<<<<<<<<<<<<< Iniciando PIP [" + getModuleName() + "] (build 1.3)... >>>>>>>>>>>>>>>>>");
 
 		log.info(">>>> Registrando atributos...");
 		supportedAttributes.add(AtributosConstantes.ATRIB_USUARIO_DEPARTAMENTO);
