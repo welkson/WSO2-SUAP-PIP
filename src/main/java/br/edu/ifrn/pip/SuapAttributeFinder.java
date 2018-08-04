@@ -1,6 +1,8 @@
 package br.edu.ifrn.pip;
 
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
@@ -20,12 +22,13 @@ public class SuapAttributeFinder extends AbstractPIPAttributeFinder {
 
 	@Override
 	public void init(Properties properties) throws Exception {
-		log.info("<<<<<<<<<<<<<<<<< Iniciando PIP [" + getModuleName() + "] (build 1)... >>>>>>>>>>>>>>>>>");
-		
+		log.info("<<<<<<<<<<<<<<<<< Iniciando PIP [" + getModuleName() + "] (build 1.2)... >>>>>>>>>>>>>>>>>");
+
 		log.info(">>>> Registrando atributos...");
 		supportedAttributes.add(AtributosConstantes.ATRIB_USUARIO_DEPARTAMENTO);
 		supportedAttributes.add(AtributosConstantes.ATRIB_CENTRALSERV_SOLICITANTE);
 		supportedAttributes.add(AtributosConstantes.ATRIB_CENTRALSERV_ATENDENTE);
+		//imprimirAmbienteExecucao();
 	}
 
 	@Override
@@ -33,10 +36,23 @@ public class SuapAttributeFinder extends AbstractPIPAttributeFinder {
 		return "WSO2-SUAP-PIP";
 	}
 
+	private void imprimirAmbienteExecucao() {
+		SuapAttributeFinder.log.info("------------ PROPRIEDADES ------------");
+		Properties properties = System.getProperties();
+		for (Object key : properties.keySet()) {
+			SuapAttributeFinder.log.info(key + "=" + properties.getProperty(key.toString()));
+		}
+		SuapAttributeFinder.log.info("\n------------ ENVIRONMENT ------------");
+		Map<String, String> mapa = System.getenv();
+		for (Entry<String, String> entrada : mapa.entrySet()) {
+			SuapAttributeFinder.log.info(entrada.getKey() + "=" + entrada.getValue());
+		}
+	}
+
 	@Override
 	public Set<String> getAttributeValues(String subjectId, String resourceId, String actionId, String environmentId,
-			String attributeId, String issuer) throws Exception {		
-		//popula valores do atributo em um objeto
+			String attributeId, String issuer) throws Exception {
+		// popula valores do atributo em um objeto
 		TipoAtributo atributo = new TipoAtributo();
 		atributo.setNomeAtributo(attributeId);
 		atributo.setSujeito(subjectId);
@@ -54,7 +70,8 @@ public class SuapAttributeFinder extends AbstractPIPAttributeFinder {
 
 		Set<String> values = new HashSet<String>();
 		Connector connector = Factory.getInstance().criarConnector(attributeId);
-		values.add(connector.recuperarValorDeAtributo(atributo));  //TODO: criar objeto e popular todo os 4 atriutos (subjectId, resource, etc.)
+		values.add(connector.recuperarValorDeAtributo(atributo)); // TODO: criar objeto e popular todo os 4 atriutos
+																	// (subjectId, resource, etc.)
 
 		return values;
 	}

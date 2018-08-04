@@ -57,6 +57,7 @@ public class ConfigUtil {
 		if (inputStream != null) {
 			try {
 				CONFIG_PROPERTIES.load(inputStream);
+				log.info("<<<<<<< Arquivo properties carregado com sucesso. (" + ARQUIVO_CONFIGURACOES_PIP + ")");
 			} catch (IOException exception) {
 				log.error("Ocorreu um erro ao carregar o arquivo de configurações.", exception);
 			}
