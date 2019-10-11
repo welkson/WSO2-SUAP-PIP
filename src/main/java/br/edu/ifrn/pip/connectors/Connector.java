@@ -2,8 +2,8 @@ package br.edu.ifrn.pip.connectors;
 
 import br.edu.ifrn.pip.TipoAtributo;
 
-public interface Connector {						//abstract factory
+public interface Connector {
 
-	String recuperarValorDeAtributo(TipoAtributo buscaPor);
+    String recuperarValorDeAtributo(TipoAtributo buscaPor);
 
 }
